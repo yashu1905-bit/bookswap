@@ -22,6 +22,6 @@ app.use('/api/auth',rateLimit({windowMs:15*60*1000,limit:60,standardHeaders:true
 app.use('/api/users',users);app.use('/api/books',books);app.use('/api/exchanges',exchanges);app.use('/api/reviews',reviews);app.use('/api',features);
 app.get('/api/health',(req,res)=>res.json({status:'ok',service:'BookSwap API'}));
 app.use('/api',notFound);
-if(app.get('nextHandler'))app.use((req,res)=>app.get('nextHandler')(req,res));
+app.use((req,res,next)=>{const handler=app.get('nextHandler');if(handler)return handler(req,res);next();});
 app.use(errorHandler);
 export default app;
