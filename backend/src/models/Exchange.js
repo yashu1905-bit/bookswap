@@ -1,0 +1,3 @@
+import mongoose from 'mongoose';
+const schema = new mongoose.Schema({ requester:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true}, owner:{type:mongoose.Schema.Types.ObjectId,ref:'User',required:true}, requestedBook:{type:mongoose.Schema.Types.ObjectId,ref:'Book',required:true}, offeredBook:{type:mongoose.Schema.Types.ObjectId,ref:'Book',required:true}, message:{type:String,maxlength:500,default:''}, status:{type:String,enum:['pending','accepted','rejected','cancelled','completed'],default:'pending'}, completedAt:Date },{timestamps:true});
+export default mongoose.model('Exchange',schema);
